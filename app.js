@@ -48,10 +48,21 @@ const Friends = createFriends(document.querySelector('#friends'), {
     handleFeedFriend: (friend) => {
         // *** Three possible outcomes:
         // 1. Set a message if no mushrooms exist telling user to go hunt some
+        if (!state.mushrooms.length) {
+            setMessage(friend.name + 'No mushrooms found. Keep searching!');
+        }
         // 2. Friend is already fully satisfied ( === 2), set a message
         //    that this friend is full and they should pick another friend
+        else if (friend.satisfied === 2) {
+            setMessage(friend.name + ' is all shroomed out. Pick another friend.');
+        }
         // 3. run logic to feed the friend:
         //    - set a variable to the first mushroom in the array at index 0
+        const mushroom = state.mushrooms[0];
+        friend.satisfied++;
+        removeMushroom(mushroom);
+        updateFriend(friend);
+        setMessage('');
         //    - use removeMushroom to remove this mushroom from state
         //    - increment the friend.satisfied property
         //    - use updateFriend to modify state

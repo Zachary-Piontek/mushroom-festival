@@ -30,7 +30,8 @@ const foundMessage = [
 
 const Forest = createForest(document.querySelector('#forest'), {
     handleForage: () => {
-        const found = getRandomItem(state.amounts);
+        const found = getRandomItem(state.amounts); 
+        //console.log('found', found);
 
         for (let i = 0; i < found; i++) {
             const type = getRandomItem(state.types);
@@ -58,11 +59,15 @@ const Friends = createFriends(document.querySelector('#friends'), {
         }
         // 3. run logic to feed the friend:
         //    - set a variable to the first mushroom in the array at index 0
-        const mushroom = state.mushrooms[0];
-        friend.satisfied++;
-        removeMushroom(mushroom);
-        updateFriend(friend);
-        setMessage('');
+        else {
+            const mushroom = state.mushrooms[0];
+            friend.satisfied++;
+            removeMushroom(mushroom);
+            console.log(mushroom);
+            updateFriend(friend);
+            console.log(friend);
+            setMessage('');
+        }
         //    - use removeMushroom to remove this mushroom from state
         //    - increment the friend.satisfied property
         //    - use updateFriend to modify state
@@ -73,6 +78,7 @@ const Friends = createFriends(document.querySelector('#friends'), {
     },
     handleBye: (friend) => {
         // *** use removeFriend to remove this friend from state;
+        removeFriend(friend);
         display();
     },
 });
